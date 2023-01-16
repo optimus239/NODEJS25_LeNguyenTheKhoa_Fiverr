@@ -57,6 +57,8 @@ model LoaiCongViec {
   id                  Int                   @id @default(autoincrement())
   ten_loai_cong_viec  String?               @db.VarChar(255)
   ChiTietLoaiCongViec ChiTietLoaiCongViec[]
+
+  @@fulltext([ten_loai_cong_viec])
 }
 
 model NguoiDung {

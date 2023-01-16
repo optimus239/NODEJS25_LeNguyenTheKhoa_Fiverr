@@ -3,7 +3,6 @@ import {
   HttpException,
   HttpStatus,
   UseGuards,
-  UseInterceptors,
 } from '@nestjs/common';
 import { Get, Post, Req, Delete, Put } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
@@ -18,9 +17,6 @@ import { ContentAuthDto, NguoiDungSignupDto } from 'src/auth/dto';
 import { NguoiDungDto, ResponseBodyDto } from 'src/dto';
 import { UserService } from './user.service';
 import { Request } from 'express';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
-import { UploadedFile } from '@nestjs/common/decorators';
 
 @ApiBearerAuth()
 @UseGuards(AuthGuard('tokenkhoa'))
@@ -102,19 +98,22 @@ export class UserController {
   @ApiQuery({ name: 'pageSize', type: Number, required: false })
   @ApiQuery({ name: 'keyword', type: String, required: false })
   @Get('phan-trang-tim-kiem')
-  async getPageAndSearchUser(@Req() req: Request): Promise<ResponseBodyDto> {
+  async paginationPageAndSearchUser(
+    @Req() req: Request,
+  ): Promise<ResponseBodyDto> {
     const pageIndex = Number(req.query.pageIndex);
     const pageSize = Number(req.query.pageSize);
     const keyword = req.query.keyword.toString();
-    let checkGetPageAndSearchUser = await this.userService.getPageAndSearchUser(
-      pageIndex,
-      pageSize,
-      keyword,
-    );
+    let checkPaginationPageAndSearchUser =
+      await this.userService.paginationPageAndSearchUser(
+        pageIndex,
+        pageSize,
+        keyword,
+      );
     throw new HttpException(
       {
-        message: checkGetPageAndSearchUser.message,
-        content: checkGetPageAndSearchUser.content,
+        message: checkPaginationPageAndSearchUser.message,
+        content: checkPaginationPageAndSearchUser.content,
       },
       HttpStatus.OK,
     );

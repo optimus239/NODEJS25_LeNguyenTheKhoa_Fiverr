@@ -46,7 +46,6 @@ export class UserService {
           certification,
         },
       });
-      console.log('checkEmail');
       return {
         check: true,
         message: 'Đăng ký thành công !',
@@ -87,7 +86,7 @@ export class UserService {
     }
   }
 
-  async getPageAndSearchUser(
+  async paginationPageAndSearchUser(
     pageIndex: number,
     pageSize: number,
     keyword: string,
