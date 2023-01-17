@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { JobCategoriesModule } from './job-categories/job-categories.module';
+import { DetailJobCategoryModule } from './detail-job-category/detail-job-category.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { JobCategoriesModule } from './job-categories/job-categories.module';
     AuthModule,
     UserModule,
     JobCategoriesModule,
+    DetailJobCategoryModule,
   ],
   controllers: [AppController],
   providers: [AppService],

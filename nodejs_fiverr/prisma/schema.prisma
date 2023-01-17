@@ -31,6 +31,7 @@ model ChiTietLoaiCongViec {
   CongViec          CongViec[]
 
   @@index([ma_loai_cong_viec], map: "ma_loai_cong_viec")
+  @@fulltext([ten_chi_tiet])
 }
 
 model CongViec {
