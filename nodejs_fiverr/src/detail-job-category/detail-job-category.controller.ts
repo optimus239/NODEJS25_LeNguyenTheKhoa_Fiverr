@@ -31,11 +31,10 @@ import {
   ResponseDetailJobCategoryDto,
 } from './dto';
 
-// @ApiBearerAuth()
-// @UseGuards(AuthGuard('tokenkhoa'))
+@ApiBearerAuth()
+@UseGuards(AuthGuard('tokenkhoa'))
 @ApiTags('ChiTietLoaiCongViec')
 @Controller('api/chi-tiet-loai-cong-viec')
-@Controller('detail-job-category')
 export class DetailJobCategoryController {
   constructor(
     private readonly detailJobCategoryService: DetailJobCategoryService,
@@ -123,15 +122,15 @@ export class DetailJobCategoryController {
   ): Promise<ResponseBodyDto> {
     const id = Number(req.params.id);
     const { ten_chi_tiet } = req.body;
-    let checkputDetailJobCategoryById =
+    let checkPutDetailJobCategoryById =
       await this.detailJobCategoryService.putDetailJobCategoryById(
         id,
         ten_chi_tiet,
       );
     throw new HttpException(
       {
-        message: checkputDetailJobCategoryById.message,
-        content: checkputDetailJobCategoryById.content,
+        message: checkPutDetailJobCategoryById.message,
+        content: checkPutDetailJobCategoryById.content,
       },
       HttpStatus.OK,
     );
@@ -225,5 +224,28 @@ export class DetailJobCategoryController {
         HttpStatus.BAD_REQUEST,
       );
     }
+  }
+
+  @ApiParam({ name: 'id' })
+  @ApiBody({ type: DetailJobCategoryDto })
+  @Put('sua-nhom-chi-tiet-loai/:id')
+  async putDetailJobCategoryByGroup(
+    @Req() req: Request,
+  ): Promise<ResponseBodyDto> {
+    const id = Number(req.params.id);
+    const { ten_chi_tiet, ma_loai_cong_viec } = req.body;
+    const checkPut =
+      await this.detailJobCategoryService.putDetailJobCategoryByGroup(
+        id,
+        ten_chi_tiet,
+        ma_loai_cong_viec,
+      );
+    throw new HttpException(
+      {
+        message: checkPut.message,
+        content: checkPut.content,
+      },
+      HttpStatus.OK,
+    );
   }
 }

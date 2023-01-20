@@ -32,7 +32,7 @@ export class JobCategoriesController {
 
   @ApiBody({ type: JobCategoriesDto })
   @Post()
-  async postJobCategory(@Req() req: Request): Promise<any> {
+  async postJobCategory(@Req() req: Request): Promise<ResponseBodyDto> {
     const { ten_loai_cong_viec } = req.body;
     let checkPostJobCategory = await this.jobCategoriesService.postJobCategory(
       ten_loai_cong_viec,

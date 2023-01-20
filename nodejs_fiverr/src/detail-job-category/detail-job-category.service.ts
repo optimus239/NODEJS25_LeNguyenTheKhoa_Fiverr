@@ -114,7 +114,7 @@ export class DetailJobCategoryService {
     id: number,
     filename: string,
   ): Promise<ResponseBodyDto> {
-    let data = await this.prisma.chiTietLoaiCongViec.findFirst({
+    let data = await this.prisma.chiTietLoaiCongViec.findMany({
       where: { id },
     });
     if (data) {
@@ -127,7 +127,7 @@ export class DetailJobCategoryService {
       return {
         check: true,
         message: 'Thêm ảnh thành công',
-        content: filename,
+        content: data,
       };
     } else {
       return {
@@ -136,5 +136,25 @@ export class DetailJobCategoryService {
         content: '',
       };
     }
+  }
+
+  async putDetailJobCategoryByGroup(
+    id: number,
+    ten_chi_tiet: string,
+    ma_loai_cong_viec: number,
+  ): Promise<ResponseBodyDto> {
+    let data = await this.prisma.chiTietLoaiCongViec.update({
+      where: { id },
+      data: {
+        id,
+        ten_chi_tiet,
+        ma_loai_cong_viec,
+      },
+    });
+    return {
+      check: true,
+      message: 'Thay đổi thành công',
+      content: data,
+    };
   }
 }

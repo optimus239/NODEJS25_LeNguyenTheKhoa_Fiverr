@@ -52,6 +52,7 @@ model CongViec {
 
   @@index([ma_chi_tiet_loai], map: "ma_chi_tiet_loai")
   @@index([nguoi_tao], map: "nguoi_tao")
+  @@fulltext([ten_cong_viec])
 }
 
 model LoaiCongViec {

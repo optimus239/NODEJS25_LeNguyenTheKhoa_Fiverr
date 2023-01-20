@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { JobCategoriesModule } from './job-categories/job-categories.module';
 import { DetailJobCategoryModule } from './detail-job-category/detail-job-category.module';
+import { JobModule } from './job/job.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { DetailJobCategoryModule } from './detail-job-category/detail-job-catego
     UserModule,
     JobCategoriesModule,
     DetailJobCategoryModule,
+    JobModule,
   ],
   controllers: [AppController],
   providers: [AppService],

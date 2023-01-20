@@ -81,8 +81,6 @@ export class JobCategoriesService {
         ten_loai_cong_viec,
       },
     });
-    if (data) {
-    }
     return {
       check: true,
       message: 'Thay đổi thành công',
