@@ -17,6 +17,7 @@ import {
   ApiBearerAuth,
   ApiBody,
   ApiConsumes,
+  ApiHeader,
   ApiParam,
   ApiQuery,
   ApiTags,
@@ -237,6 +238,19 @@ export class JobController {
     }
   }
 
+  @ApiConsumes()
+  @Get('/menu/lay-menu-loai-cong-viec')
+  async getListJobType(): Promise<ResponseBodyDto> {
+    let checkGetListJobType = await this.jobService.getListJobType();
+    throw new HttpException(
+      {
+        message: checkGetListJobType.message,
+        content: checkGetListJobType.content,
+      },
+      HttpStatus.OK,
+    );
+  }
+
   @ApiParam({ name: 'ma_loai_cong_viec', type: Number })
   @Get('lay-chi-tiet-loai-cong-viec/:ma_loai_cong_viec')
   async getMenuJobCategory(@Req() req: Request): Promise<ResponseBodyDto> {
@@ -270,14 +284,25 @@ export class JobController {
     let checkGetJobByIdDetailJobType = await this.jobService.getJobByJobTypeId(
       ma_chi_tiet_loai,
     );
-    throw new HttpException(
-      {
-        message: checkGetJobByIdDetailJobType.message,
-        content: checkGetJobByIdDetailJobType.content,
-        datetime: new Date(),
-      },
-      HttpStatus.OK,
-    );
+    if (checkGetJobByIdDetailJobType.check) {
+      throw new HttpException(
+        {
+          message: checkGetJobByIdDetailJobType.message,
+          content: checkGetJobByIdDetailJobType.content,
+          datetime: new Date(),
+        },
+        HttpStatus.OK,
+      );
+    } else {
+      throw new HttpException(
+        {
+          message: checkGetJobByIdDetailJobType.message,
+          content: checkGetJobByIdDetailJobType.content,
+          datetime: new Date(),
+        },
+        HttpStatus.BAD_REQUEST,
+      );
+    }
   }
 
   @ApiParam({ name: 'ma_cong_viec', type: Number })
@@ -285,27 +310,38 @@ export class JobController {
   async getJobByJobId(@Req() req: Request): Promise<ResponseBodyDto> {
     let ma_cong_viec = Number(req.params.ma_cong_viec);
     let checkGetJobByJobId = await this.jobService.getJobByJobId(ma_cong_viec);
-    throw new HttpException(
-      {
-        message: checkGetJobByJobId.message,
-        content: checkGetJobByJobId.content,
-        datetime: new Date(),
-      },
-      HttpStatus.OK,
-    );
+    if (checkGetJobByJobId.check) {
+      throw new HttpException(
+        {
+          message: checkGetJobByJobId.message,
+          content: checkGetJobByJobId.content,
+          datetime: new Date(),
+        },
+        HttpStatus.OK,
+      );
+    } else {
+      throw new HttpException(
+        {
+          message: checkGetJobByJobId.message,
+          content: checkGetJobByJobId.content,
+          datetime: new Date(),
+        },
+        HttpStatus.BAD_REQUEST,
+      );
+    }
   }
 
   @ApiParam({ name: 'ten_cong_viec', type: String })
   @Get('lay-danh-sach-cong-viec-theo-ten/:ten_cong_viec')
   async getJobByName(@Req() req: Request): Promise<ResponseBodyDto> {
     let ten_cong_viec = req.params.ten_cong_viec;
-    let checkGetJobByIdDetailJobType = await this.jobService.getListJobByName(
+    let checkGetJobByName = await this.jobService.getListJobByName(
       ten_cong_viec,
     );
     throw new HttpException(
       {
-        message: checkGetJobByIdDetailJobType.message,
-        content: checkGetJobByIdDetailJobType.content,
+        message: checkGetJobByName.message,
+        content: checkGetJobByName.content,
         datetime: new Date(),
       },
       HttpStatus.OK,

@@ -51,13 +51,13 @@ export class NguoiDungDto {
 
   @ApiProperty({
     description: 'skill',
-    type: Array,
+    type: String,
   })
   skill: string;
 
   @ApiProperty({
     description: 'certification',
-    type: Array,
+    type: String,
   })
   certification: string;
 }

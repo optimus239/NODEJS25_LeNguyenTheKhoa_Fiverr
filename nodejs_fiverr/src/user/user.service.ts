@@ -129,7 +129,6 @@ export class UserService {
   async putUserById(
     id: number,
     name: string,
-    email: string,
     pass_word: string,
     phone: string,
     birth_day: string,
@@ -144,7 +143,6 @@ export class UserService {
       },
       data: {
         name,
-        email,
         pass_word,
         phone,
         birth_day,

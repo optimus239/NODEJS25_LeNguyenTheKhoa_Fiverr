@@ -25,7 +25,6 @@ import { Request } from 'express';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  //get users
   @Get()
   async getUser(): Promise<NguoiDungDto[]> {
     return this.userService.getUser();
@@ -148,10 +147,8 @@ export class UserController {
   @Put(':id')
   async putUserById(@Req() req: Request): Promise<ResponseBodyDto> {
     const id = Number(req.params.id);
-
     const {
       name,
-      email,
       pass_word,
       phone,
       birth_day,
@@ -163,14 +160,13 @@ export class UserController {
     let checkPutUserById = await this.userService.putUserById(
       id,
       name,
-      email,
       pass_word,
       phone,
       birth_day,
       gender.toString(),
       role,
-      skill.toString(),
-      certification.toString(),
+      skill,
+      certification,
     );
     throw new HttpException(
       {
